@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Title</strong>
   <%= @task.title %>
 </p>
-
 <p>
   <strong>Description</strong>
   <%= @task.description %>
 </p>
+<%= link_to '編集', edit_task_path(@task) %> |
+<%= link_to '戻る', tasks_path %>
