@@ -1,0 +1,19 @@
+ja:
+  tasks:
+    index:
+      title: 'TODO一覧'
+      show: '詳細'
+      edit: '編集'
+      delete: '削除'
+      confirm: '本当によろしいですか？'
+      add: 'タスクを追加する'
+    show:
+      edit: '編集'
+      back: '戻る'
+    new:
+      title: 'タスク登録'
+      back: '戻る'
+    edit:
+      title: 'タスク編集'
+      show: '詳細'
+      back: '戻る'
