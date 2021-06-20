@@ -1,24 +1,26 @@
 <p id="notice"><%= notice %></p>
-<h1>TODO一覧</h1>
+<h1><%= t('.title') %></h1>
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
+      <th><%= t('activerecord.attributes.task.title') %></th>
+      <th><%= t('activerecord.attributes.task.description') %></th>
+      <th><%= t('attributes.created_at') %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
   <tbody>
-    <% @tasks.each do |t| %>
+    <% @tasks.each do |task| %>
       <tr>
-        <td><%= t.title %></td>
-        <td><%= t.description %></td>
-        <td><%= link_to '詳細', t %></td>
-        <td><%= link_to '編集', edit_task_path(t) %></td>
-        <td><%= link_to '削除', t, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= task.title %></td>
+        <td><%= task.description %></td>
+        <td><%= l(task.created_at, format: :long) %></td>
+        <td><%= link_to t('.show'), task %></td>
+        <td><%= link_to t('.edit'), edit_task_path(task) %></td>
+        <td><%= link_to t('.delete'), task, method: :delete, data: { confirm: t('.confirm') } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-<%= link_to 'タスクを登録する', new_task_path %>
+<%= link_to t('.add'), new_task_path %>
