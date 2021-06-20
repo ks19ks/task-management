@@ -6,6 +6,7 @@ ja:
       task:
         title: タイトル
         description: 説明
+        duedate: 終了期限
   attributes:
     created_at: 作成日時
     updated_at: 更新日時
