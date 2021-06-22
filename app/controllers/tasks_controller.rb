@@ -2,7 +2,11 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.order(created_at: :DESC)
+    if params[:sort_due]
+      @tasks = Task.order('due_date DESC NULLS LAST, created_at DESC')
+    else
+      @tasks = Task.order(created_at: :DESC)
+    end
   end
 
   def show

@@ -16,7 +16,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe '一覧表示機能' do
-    let!(:task) { FactoryBot.create(:task, title: 'new task') }
+    let!(:task) { FactoryBot.create(:task, title: 'new task', due_date: '2021-05-01') }
     before do
       visit tasks_path
     end
@@ -29,6 +29,19 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '新しいタスクが一番上に表示される' do
         new_task = all('tbody tr')[0]
         expect(new_task).to have_content 'new task'
+      end
+    end
+    context '終了期限でソートするボタンを押した場合' do
+      it '終了期限の降順に並び替えられたタスク一覧が表示される' do
+        visit new_task_path
+        fill_in "タイトル",	with: "新しいタスク"
+        fill_in "説明",	with: "終了期限の確認"
+        fill_in "終了期限",	with: "002020-04-01"
+        click_on '登録する'
+        visit tasks_path
+        click_link '終了期限でソート'
+        task = all('tbody tr').last
+        expect(task).to have_content '新しいタスク'
       end
     end
   end
