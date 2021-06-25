@@ -8,8 +8,12 @@
   <%= @task.description %>
 </p>
 <p>
-  <strong><%= t('activerecord.attributes.task.duedate') %>: </strong>
+  <strong><%= t('activerecord.attributes.task.due_date') %>: </strong>
   <%= l(@task.due_date) if @task.due_date %>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.task.status') %>: </strong>
+  <%= @task.status %>
 </p>
 <%= link_to t('.edit'), edit_task_path(@task) %> |
 <%= link_to t('.back'), tasks_path %>

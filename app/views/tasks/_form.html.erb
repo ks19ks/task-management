@@ -23,6 +23,10 @@
     <%= form.date_field :due_date %>
   </div>
   <div>
+    <%= form.label :status %>
+    <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, { include_blank: '選択してください' } %>
+  </div>
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
