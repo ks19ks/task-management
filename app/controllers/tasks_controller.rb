@@ -4,6 +4,8 @@ class TasksController < ApplicationController
   def index
     if params[:sort_due]
       @tasks = Task.order('due_date DESC NULLS LAST, created_at DESC')
+    elsif params[:sort_priority]
+      @tasks = Task.order('priority NULLS LAST, created_at DESC')
     else
       @tasks = Task.order(created_at: :DESC)
     end
@@ -54,7 +56,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :due_date, :status)
+    params.require(:task).permit(:title, :description, :due_date, :status, :priority)
   end
 
   def set_task

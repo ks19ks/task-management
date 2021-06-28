@@ -76,6 +76,13 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task).to have_content '新しいタスク'
       end
     end
+    context '優先度でソートするボタンを押した場合' do
+      it '優先度の高い順に並び替えられたタスク一覧が表示される' do
+        visit tasks_path
+        click_on '優先度でソート'
+        expect(all('tbody tr').last).to have_content 'タイトルテスト'
+      end
+    end
   end
 
   describe '詳細表示機能' do
