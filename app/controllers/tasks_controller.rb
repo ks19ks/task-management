@@ -19,6 +19,8 @@ class TasksController < ApplicationController
         @tasks = Task.search_by_status(params[:task][:status])
       end
     end
+
+    @tasks = @tasks.page(params[:page]).per(5)
   end
 
   def show
