@@ -27,6 +27,10 @@
     <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, { include_blank: '選択してください' } %>
   </div>
   <div>
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.keys.map { |k| [k, k] }, { include_blank: '選択してください' } %>
+  </div>
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

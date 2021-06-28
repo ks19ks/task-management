@@ -6,4 +6,5 @@ class Task < ApplicationRecord
   validates :description, presence: true
 
   enum status: [ '未着手', '着手中', '完了' ]
+  enum priority: [ '高', '中', '低' ]
 end

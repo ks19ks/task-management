@@ -15,5 +15,9 @@
   <strong><%= t('activerecord.attributes.task.status') %>: </strong>
   <%= @task.status %>
 </p>
+<p>
+  <strong><%= t('activerecord.attributes.task.priority') %>: </strong>
+  <%= @task.priority %>
+</p>
 <%= link_to t('.edit'), edit_task_path(@task) %> |
 <%= link_to t('.back'), tasks_path %>
