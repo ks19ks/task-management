@@ -1,45 +1,58 @@
-<p id="notice"><%= notice %></p>
-<h1><%= t('.title') %></h1>
-<div>
+<div class="adj-width-w mt-3">
+  <p id="notice"><%= notice %></p>
+  <h1><%= t('.title') %></h1>
   <%= form_with(scope: :task, url: tasks_path, method: :get, local: true) do |f| %>
-    <%= f.label :title, 'タイトル' %>
-    <%= f.text_field :title %>
-    <%= f.label :status, 'ステータス' %>
-    <%= f.select :status, Task.statuses.keys.map { |k| [k, k] }, { include_blank: '選択してください' } %>
-    <%= f.submit '検索' %>
-    <%= link_to 'クリア', tasks_path %>
+    <div class="row g-2">
+      <div class="col-auto">
+        <%= f.label :title, 'タイトル', class: 'col-form-label' %>
+        <%= f.text_field :title, class: 'form-control' %>
+      </div>
+      <div class="col-auto">
+        <%= f.label :status, 'ステータス', class: 'col-form-label' %>
+        <%= f.select :status, Task.statuses.keys.map { |k| [k, k] }, { include_blank: '選択してください' }, class: 'form-select' %>
+      </div>
+      <div class="col-auto align-self-end">
+        <%= f.submit '検索', class: 'btn btn-outline-dark' %>
+      </div>
+      <div class="col-auto align-self-end mb-2">
+        <%= link_to 'クリア', tasks_path %>
+      </div>
+    </div>
   <% end %>
-  <%= link_to '終了期限でソート', tasks_path(sort_due: 'true') %>
-  <%= link_to '優先度でソート', tasks_path(sort_priority: 'true') %>
+  <div class="wrapper table-responsive mt-3">
+    <table class="table table-sm table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th><%= t('activerecord.attributes.task.title') %></th>
+          <th><%= t('activerecord.attributes.task.description') %></th>
+          <th><%= link_to t('activerecord.attributes.task.due_date'), tasks_path(sort_due: 'true') %>&darr;</th>
+          <th><%= t('activerecord.attributes.task.status') %></th>
+          <th><%= link_to t('activerecord.attributes.task.priority'), tasks_path(sort_priority: 'true') %>&darr;</th>
+          <th><%= t('attributes.created_at') %></th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><%= task.title %></td>
+            <td><%= task.description %></td>
+            <td><%= l(task.due_date) if task.due_date %></td>
+            <td><%= task.status %></td>
+            <td><%= task.priority %></td>
+            <td><%= l(task.created_at, format: :long) %></td>
+            <td>
+              <div class="btn-group">
+                <%= link_to t('.show'), task, class: 'btn btn-sm btn-outline-secondary' %>
+                <%= link_to t('.edit'), edit_task_path(task), class: 'btn btn-sm btn-outline-secondary' %>
+                <%= link_to t('.delete'), task, method: :delete, data: { confirm: t('.confirm') }, class: 'btn btn-sm btn-outline-secondary text-danger' %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= paginate @tasks %>
+  <%= link_to t('.add'), new_task_path, class: 'btn btn-primary' %>
 </div>
-<table border="1" style="border-collapse: collapse">
-  <thead>
-    <tr>
-      <th><%= t('activerecord.attributes.task.title') %></th>
-      <th><%= t('activerecord.attributes.task.description') %></th>
-      <th><%= t('activerecord.attributes.task.due_date') %></th>
-      <th><%= t('activerecord.attributes.task.status') %></th>
-      <th><%= t('activerecord.attributes.task.priority') %></th>
-      <th><%= t('attributes.created_at') %></th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.description %></td>
-        <td><%= l(task.due_date) if task.due_date %></td>
-        <td><%= task.status %></td>
-        <td><%= task.priority %></td>
-        <td><%= l(task.created_at, format: :long) %></td>
-        <td><%= link_to t('.show'), task %></td>
-        <td><%= link_to t('.edit'), edit_task_path(task) %></td>
-        <td><%= link_to t('.delete'), task, method: :delete, data: { confirm: t('.confirm') } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @tasks %>
-<br>
-<%= link_to t('.add'), new_task_path %>

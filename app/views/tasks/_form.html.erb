@@ -1,36 +1,37 @@
-<%= form_with(model: task, local: true) do |form| %>
-  <% if task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= t('errors.template.header.multiple', count: task.errors.count) %></h2>
-      <ul>
-      <% task.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="adj-width mt-4">
+  <%= form_with(model: task, local: true) do |form| %>
+    <% if task.errors.any? %>
+      <div class="alert alert-danger">
+        <h2><%= t('errors.template.header.multiple', count: task.errors.count) %></h2>
+        <ul>
+        <% task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="mb-3">
+      <%= form.label :title, class: 'form-label' %>
+      <%= form.text_field :title, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :description, class: 'form-label' %>
+      <%= form.text_area :description, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :due_date, class: 'form-label' %>
+      <%= form.date_field :due_date, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :status, class: 'form-label' %>
+      <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, { include_blank: '選択してください' }, class: 'form-select' %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :priority, class: 'form-label' %>
+      <%= form.select :priority, Task.priorities.keys.map { |k| [k, k] }, { include_blank: '選択してください' }, class: 'form-select' %>
+    </div>
+    <div class="mb-2">
+      <%= form.submit class: 'btn btn-primary' %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-  <div>
-    <%= form.label :due_date %>
-    <%= form.date_field :due_date %>
-  </div>
-  <div>
-    <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, { include_blank: '選択してください' } %>
-  </div>
-  <div>
-    <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.keys.map { |k| [k, k] }, { include_blank: '選択してください' } %>
-  </div>
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
