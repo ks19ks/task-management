@@ -71,7 +71,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in "終了期限",	with: "002020-04-01"
         click_on '登録する'
         visit tasks_path
-        click_link '終了期限でソート'
+        click_on '終了期限'
         task = all('tbody tr').last
         expect(task).to have_content '新しいタスク'
       end
@@ -79,7 +79,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '優先度でソートするボタンを押した場合' do
       it '優先度の高い順に並び替えられたタスク一覧が表示される' do
         visit tasks_path
-        click_on '優先度でソート'
+        click_on '優先度'
         expect(all('tbody tr').last).to have_content 'タイトルテスト'
       end
     end
