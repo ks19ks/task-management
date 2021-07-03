@@ -1,4 +1,8 @@
-<h1><%= t('.title') %></h1>
+<div class="adj-width mt-3">
+  <h1><%= t('.title') %></h1>
+</div>
 <%= render 'form', task: @task %>
-<%= link_to t('.show'), @task %> |
-<%= link_to t('.back'), tasks_path %>
+<div class="adj-width">
+  <%= link_to t('.show'), @task %> |
+  <%= link_to t('.back'), tasks_path %>
+</div>

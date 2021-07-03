@@ -8,6 +8,7 @@ ja:
       confirm: '本当によろしいですか？'
       add: 'タスクを追加する'
     show:
+      title: 'タスク詳細'
       edit: '編集'
       back: '戻る'
     new:

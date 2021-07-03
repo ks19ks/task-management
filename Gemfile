@@ -26,6 +26,10 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'kaminari'
+gem 'bootstrap', '~> 5.0.1'
+gem 'jquery-rails'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'spring'
@@ -35,13 +39,15 @@ group :development, :test do
   gem 'faker'
   gem 'launchy'
   gem 'dotenv-rails'
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'awesome_print'
 end
 
 group :test do

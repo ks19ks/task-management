@@ -21,4 +21,30 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe "検索機能" do
+    let!(:task) { FactoryBot.create(:task, title: 'this is task', status: '完了') }
+    let!(:task2) { FactoryBot.create(:task2, title: 'sample', status: '未着手') }
+    context 'タイトルでタスクの検索をした場合' do
+      it '検索キーワードを含むタスクに絞り込まれる' do
+        expect(Task.search_by_title('task')).to include(task)
+        expect(Task.search_by_title('task')).not_to include(task2)
+        expect(Task.search_by_title('task').count).to eq 1
+      end
+    end
+    context 'ステータスでタスクの検索をした場合' do
+      it 'ステータスに完全一致するタスクに絞り込まれる' do
+        expect(Task.search_by_status('完了')).to include(task)
+        expect(Task.search_by_status('完了')).not_to include(task2)
+        expect(Task.search_by_status('完了').count).to eq 1
+      end
+    end
+    context 'タイトルとステータスでタスクの検索をした場合' do
+      it '検索キーワードをタイトルに含み、かつステータスに完全一致するタスクに絞り込まれる' do
+        expect(Task.search_by_title('task').search_by_status('完了')).to include(task)
+        expect(Task.search_by_title('task').search_by_status('完了')).not_to include(task2)
+        expect(Task.search_by_title('task').search_by_status('完了').count).to eq 1
+      end
+    end
+  end
 end

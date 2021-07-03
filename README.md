@@ -1,4 +1,4 @@
-# Howt to deploy app to Heroku
+# How to deploy app to Heroku
 ### Create app on Heroku
 - `heroku create` in your app directory
 ### Conduct asset precompile
