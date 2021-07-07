@@ -16,6 +16,9 @@
       <div class="col-auto align-self-end mb-2">
         <%= link_to 'クリア', tasks_path %>
       </div>
+      <div class="col d-flex justify-content-end align-self-end">
+        <%= link_to t('.add'), new_task_path, class: 'btn btn-primary' %>
+      </div>
     </div>
   <% end %>
   <div class="wrapper table-responsive mt-3">
@@ -53,5 +56,4 @@
     </table>
   </div>
   <%= paginate @tasks %>
-  <%= link_to t('.add'), new_task_path, class: 'btn btn-primary' %>
 </div>
