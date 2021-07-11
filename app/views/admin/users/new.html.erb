@@ -24,6 +24,11 @@
     </div>
 
     <div class="mb-3">
+      <%= f.check_box :admin, class: 'form-check-input' %>
+      <%= f.label :admin, '管理者権限', class: 'form-check-label' %>
+    </div>
+
+    <div class="mb-3">
       <%= f.label :password, class: 'form-label' %>
       <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
     </div>
