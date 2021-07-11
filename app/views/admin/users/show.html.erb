@@ -1,0 +1,40 @@
+<div class="adj-width mt-4">
+  <h1><%= @user.name %>のページ</h1>
+  <p>メールアドレス: <%= @user.email %></p>
+
+  <div class="btn-group">
+    <%= link_to '編集', edit_admin_user_path(@user), class: 'btn btn-outline-secondary' %>
+    <%= link_to '削除', admin_user_path(@user), method: :delete, data: { confirm: "ユーザー #{@user.name} を削除します。よろしいですか？" }, class: 'btn btn-outline-secondary text-danger' %>
+  </div>
+
+  <div class="wrapper table-responsive mt-3">
+    <table class="table table-sm table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th><%= t('activerecord.attributes.task.title') %></th>
+          <th><%= t('activerecord.attributes.task.description') %></th>
+          <th><%= t('activerecord.attributes.task.due_date') %></th>
+          <th><%= t('activerecord.attributes.task.status') %></th>
+          <th><%= t('activerecord.attributes.task.priority') %></th>
+          <th><%= t('attributes.created_at') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><%= task.title %></td>
+            <td><%= task.description %></td>
+            <td><%= l(task.due_date) if task.due_date %></td>
+            <td><%= task.status %></td>
+            <td><%= task.priority %></td>
+            <td><%= l(task.created_at, format: :long) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-2">
+    <%= link_to '戻る', admin_users_path %>
+  </div>
+</div>
