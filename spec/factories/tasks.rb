@@ -5,6 +5,7 @@ FactoryBot.define do
     due_date { '2021-06-01' }
     status { '着手中' }
     priority { '高' }
+    association :user
   end
   factory :task2, class: Task do
     title { 'test_title2' }
@@ -12,6 +13,7 @@ FactoryBot.define do
     due_date { '2021-07-01' }
     status { '未着手' }
     priority { '中' }
+    association :user
   end
   factory :task3, class: Task do
     title { 'タイトルテストです' }
@@ -19,5 +21,6 @@ FactoryBot.define do
     due_date { '2021-08-01' }
     status { '完了' }
     priority { '低' }
+    association :user
   end
 end
