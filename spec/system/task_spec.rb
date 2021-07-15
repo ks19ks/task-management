@@ -1,13 +1,19 @@
 require 'rails_helper'
+
 RSpec.describe 'タスク管理機能', type: :system do
   before do
-    FactoryBot.create(:task)
-    FactoryBot.create(:task2)
-    FactoryBot.create(:task3)
+    user_a = FactoryBot.create(:user)
+    FactoryBot.create(:task, user: user_a)
+    FactoryBot.create(:task2, user: user_a)
+    FactoryBot.create(:task3, user: user_a)
   end
 
   describe "検索機能" do
     before do
+      visit login_path
+      fill_in "Email", with: "admin@example.com"
+      fill_in "Password", with: "password"
+      click_button 'Login'
       visit tasks_path
     end
     context "タイトルであいまい検索した場合" do
@@ -35,6 +41,12 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '新規作成機能' do
+    before do
+      visit login_path
+      fill_in "Email", with: "admin@example.com"
+      fill_in "Password", with: "password"
+      click_button 'Login'
+    end
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
         visit new_task_path
@@ -48,8 +60,12 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '一覧表示機能' do
-    let!(:task) { FactoryBot.create(:task, title: 'new task', due_date: '2021-05-01') }
+    let!(:task) { FactoryBot.create(:task, title: 'new task', due_date: '2021-05-01', user: User.find_by(name: 'admin')) }
     before do
+      visit login_path
+      fill_in "Email", with: "admin@example.com"
+      fill_in "Password", with: "password"
+      click_button 'Login'
       visit tasks_path
     end
     context '一覧画面に遷移した場合' do
@@ -86,13 +102,19 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '詳細表示機能' do
-     context '任意のタスク詳細画面に遷移した場合' do
-       it '該当タスクの内容が表示される' do
-        FactoryBot.create(:task, title: 'task_a')
-        visit tasks_path
-        first('tbody tr').click_link '詳細'
-        expect(page).to have_content 'task_a'
-       end
-     end
+    before do
+      visit login_path
+      fill_in "Email", with: "admin@example.com"
+      fill_in "Password", with: "password"
+      click_button 'Login'
+    end
+    context '任意のタスク詳細画面に遷移した場合' do
+      it '該当タスクの内容が表示される' do
+      FactoryBot.create(:task, title: 'task_a', user: User.find_by(name: 'admin'))
+      visit tasks_path
+      first('tbody tr').click_link '詳細'
+      expect(page).to have_content 'task_a'
+      end
+    end
   end
 end

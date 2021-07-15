@@ -1,0 +1,14 @@
+<div class="form-signin mt-4">
+  <%= form_with(scope: :session, url: login_path, local: true) do |f| %>
+    <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
+    <div class="form-floating">
+      <%= f.email_field :email, class: 'form-control', placeholder: 'name@example.com' %>
+      <%= f.label :email %>
+    </div>
+    <div class="form-floating">
+      <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+      <%= f.label :password %>
+    </div>
+    <%= f.submit "Login", class: 'w-100 btn btn-lg btn-primary mt-2' %>
+  <% end %>
+</div>
