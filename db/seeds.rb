@@ -10,3 +10,7 @@ User.create!(
   email: 'user1@example.com',
   password: 'password'
 )
+
+Label.create!(name: 'Work')
+Label.create!(name: 'Private')
+Label.create!(name: 'Others')
