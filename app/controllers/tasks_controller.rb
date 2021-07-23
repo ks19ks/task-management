@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = current_user.tasks
+    @tasks = current_user.tasks.includes(:labels)
 
     if params[:sort_due]
       @tasks = @tasks.order('due_date DESC NULLS LAST, created_at DESC')
@@ -13,12 +13,11 @@ class TasksController < ApplicationController
     end
 
     if params[:task].present?
-      if params[:task][:title].present? && params[:task][:status].present?
-        @tasks = @tasks.search_by_title(params[:task][:title]).search_by_status(params[:task][:status])
-      elsif params[:task][:title].present?
-        @tasks = @tasks.search_by_title(params[:task][:title])
-      elsif params[:task][:status].present?
-        @tasks = @tasks.search_by_status(params[:task][:status])
+        @tasks = @tasks.search_by_title(params[:task][:title]) if params[:task][:title].present?
+        @tasks = @tasks.search_by_status(params[:task][:status]) if params[:task][:status].present?
+      if params[:task][:label_id].present?
+        task_ids = TaskLabel.where(label_id: params[:task][:label_id]).pluck(:task_id)
+        @tasks = @tasks.where(id: task_ids)
       end
     end
 
@@ -60,7 +59,14 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :due_date, :status, :priority)
+    params.require(:task).permit(
+      :title,
+      :description,
+      :due_date,
+      :status,
+      :priority,
+      { label_ids: [] }
+    )
   end
 
   def set_task

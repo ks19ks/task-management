@@ -10,6 +10,10 @@
         <%= f.label :status, 'ステータス', class: 'col-form-label' %>
         <%= f.select :status, Task.statuses.keys.map { |k| [k, k] }, { include_blank: '選択してください' }, class: 'form-select' %>
       </div>
+      <div class="col-auto">
+        <%= f.label :label_id, 'ラベル', class: 'col-form-label' %>
+        <%= f.select :label_id, Label.pluck(:name, :id), { include_blank: '選択してください' }, class: 'form-select' %>
+      </div>
       <div class="col-auto align-self-end">
         <%= f.submit '検索', class: 'btn btn-outline-dark' %>
       </div>
@@ -30,6 +34,7 @@
           <th><%= link_to t('activerecord.attributes.task.due_date'), tasks_path(sort_due: 'true') %>&darr;</th>
           <th><%= t('activerecord.attributes.task.status') %></th>
           <th><%= link_to t('activerecord.attributes.task.priority'), tasks_path(sort_priority: 'true') %>&darr;</th>
+          <th><%= t('activerecord.attributes.label.name') %></th>
           <th><%= t('attributes.created_at') %></th>
           <th colspan="3"></th>
         </tr>
@@ -42,6 +47,11 @@
             <td><%= l(task.due_date) if task.due_date %></td>
             <td><%= task.status %></td>
             <td><%= task.priority %></td>
+            <td>
+              <% task.labels.each do |label| %>
+                #<%= label.name %>
+              <% end %>
+            </td>
             <td><%= l(task.created_at, format: :long) %></td>
             <td>
               <div class="btn-group">
