@@ -10,5 +10,5 @@ class Task < ApplicationRecord
 
   belongs_to :user
   has_many :task_labels, dependent: :destroy
-  has_many :labels, through: :task_labels
+  has_many :labels, -> { order 'id' }, through: :task_labels
 end

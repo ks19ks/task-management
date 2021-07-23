@@ -30,6 +30,12 @@
       <%= form.label :priority, class: 'form-label' %>
       <%= form.select :priority, Task.priorities.keys.map { |k| [k, k] }, { include_blank: '選択してください' }, class: 'form-select' %>
     </div>
+    <div class="mb-3">
+      <%= form.collection_check_boxes :label_ids, Label.all, :id, :name do |b| %>
+        <%= b.check_box class: 'form-check-input' %>
+        <%= b.label class: 'form-check-label me-2' %>
+      <% end %>
+    </div>
     <div class="mb-2">
       <%= form.submit class: 'btn btn-primary' %>
     </div>
